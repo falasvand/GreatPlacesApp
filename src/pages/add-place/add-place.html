@@ -32,9 +32,11 @@
           </button>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="locationIsSet">
         <ion-col>
-          <p>Selected Place...</p>
+          <sebm-google-map [latitude]="location.lat" [longitude]="location.lng" [zoom]="15">
+            <sebm-google-map-marker [latitude]="location.lat" [longitude]="location.lng"></sebm-google-map-marker>
+          </sebm-google-map>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -57,7 +59,7 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <button ion-button color="secondary" block type="submit" [disabled]="!f.valid">Add Place</button>
+          <button ion-button color="secondary" block type="submit" [disabled]="!f.valid || !locationIsSet">Add Place</button>
         </ion-col>
       </ion-row>
     </ion-grid>
