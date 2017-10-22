@@ -1,45 +1,56 @@
-import { AgmCoreModule } from 'angular2-google-maps/esm/core';
-import { AddPlacePage } from '../pages/add-place/add-place';
-import { SetLocationPage } from '../pages/set-location/set-location';
-import { PlacePage } from '../pages/place/place';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { HttpModule } from '@angular/http';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
+import { StatusBar } from '@ionic-native/status-bar'; 
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { Geolocation } from '@ionic-native/geolocation';
+import { AddPlacePage } from "../pages/add-place/add-place";
+import { PlacePage } from "../pages/place/place";
+import { SetLocationPage } from "../pages/set-location/set-location";
+import { AgmCoreModule } from "angular2-google-maps/core";
+import { PlacesService } from "../services/places";
+import { Geolocation } from "@ionic-native/geolocation";
+import { Camera } from '@ionic-native/camera';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    PlacePage,
     AddPlacePage,
+    PlacePage,
     SetLocationPage
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyDJiSDetnJccdjFUuL6xqe-tqc_UdsIrnc"
+      apiKey: 'AIzaSyC_iIy2bWe8ovkr432VwoobMb7KNcI-8zo'
     })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    PlacePage,
     AddPlacePage,
+    PlacePage,
     SetLocationPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PlacesService,
+    File,
     Geolocation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Camera
   ]
 })
-export class AppModule {}
+export class AppModule {
+}
