@@ -20,6 +20,7 @@ export class AddPlacePage {
   };
   locationIsSet = false;
   imageUrl = '';
+  rating: number = null;
 
   constructor(private modalCtrl: ModalController,
               private loadingCtrl: LoadingController,
@@ -32,13 +33,14 @@ export class AddPlacePage {
 
   onSubmit(form: NgForm) {
     this.placesService
-      .addPlace(form.value.title, form.value.description, this.location, this.imageUrl);
+      .addPlace(form.value.title, form.value.description, this.rating, this.location, this.imageUrl);
     form.reset();
     this.location = {
       lat: 40.7624324,
       lng: -73.9759827
     };
     this.imageUrl = '';
+    this.rating = null;
     this.locationIsSet = false;
   }
 
@@ -122,5 +124,9 @@ export class AddPlacePage {
           toast.present();
         }
       );
+  }
+
+  onStarChange(stars: number) {
+    this.rating = stars;
   }
 }
