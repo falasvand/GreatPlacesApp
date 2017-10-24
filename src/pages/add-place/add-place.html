@@ -15,11 +15,14 @@
         <ion-label fixed>Title</ion-label>
         <ion-input
           type="text"
-          placeholder="Beautiful church..."
           name="title"
           ngModel
           required></ion-input>
       </ion-item>
+        <ion-item>
+          <ion-label>Date:</ion-label>
+          <ion-datetime displayFormat="DDDD MMM D, YYYY" name="date" [(ngModel)]="date"></ion-datetime>
+        </ion-item>
       <ion-item>
         <ion-label floating>Short Description</ion-label>
         <ion-textarea
@@ -77,14 +80,12 @@
               [longitude]="location.lng"></sebm-google-map-marker>
           </sebm-google-map>
         </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col text-center>
-          <h5>Take a Photo!</h5>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
+        </ion-row>
+      <ion-row>   
+          <ion-col col-4 align-self-end>
+            <h6>Take Photo:</h6>
+          </ion-col>
+        <ion-col col-8>
           <button
             ion-button
             icon-left
@@ -109,7 +110,7 @@
             color="secondary"
             block
             type="submit"
-            [disabled]="!f.valid || !locationIsSet || imageUrl == '' || rating == null">
+            [disabled]="!f.valid || !locationIsSet || date == '' || imageUrl == '' || rating == null">
             Add this Place
           </button>
         </ion-col>

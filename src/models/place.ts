@@ -2,6 +2,7 @@ import { Location } from "./location";
 
 export class Place {
   constructor(public title: string,
+              public date: string,
               public description: string,
               public rating: number,
               public location: Location,

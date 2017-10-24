@@ -12,11 +12,12 @@ export class PlacesService {
   constructor(private storage: Storage, private file: File) {}
 
   addPlace(title: string,
+           date: string,
            description: string,
            rating: number,
            location: Location,
            imageUrl: string) {
-    const place = new Place(title, description, rating, location, imageUrl);
+    const place = new Place(title, date, description, rating, location, imageUrl);
     this.places.push(place);
     this.storage.set('places', this.places)
       .then()
@@ -67,7 +68,7 @@ export class PlacesService {
       .catch(
         () => {
           console.log('Error while removing File');
-          this.addPlace(place.title, place.description, place.rating, place.location, place.imageUrl);
+          this.addPlace(place.title, place.date, place.description, place.rating, place.location, place.imageUrl);
         }
       );
   }

@@ -15,12 +15,13 @@ import { PlacesService } from "../../services/places";
 })
 export class AddPlacePage {
   location: Location = {
-    lat: 40.7624324,
-    lng: -73.9759827
+    lat: 43.6532,
+    lng: -79.3832
   };
   locationIsSet = false;
   imageUrl = '';
   rating: number = null;
+  date: string = '';
 
   constructor(private modalCtrl: ModalController,
               private loadingCtrl: LoadingController,
@@ -33,13 +34,14 @@ export class AddPlacePage {
 
   onSubmit(form: NgForm) {
     this.placesService
-      .addPlace(form.value.title, form.value.description, this.rating, this.location, this.imageUrl);
+      .addPlace(form.value.title, this.date, form.value.description, this.rating, this.location, this.imageUrl);
     form.reset();
     this.location = {
       lat: 40.7624324,
       lng: -73.9759827
     };
     this.imageUrl = '';
+    this.date = null;
     this.rating = null;
     this.locationIsSet = false;
   }
@@ -77,7 +79,7 @@ export class AddPlacePage {
           loader.dismiss();
           const toast = this.toastCtrl.create({
             message: 'Could not get location, please pick it manually!',
-            duration: 2500
+            duration: 2000
           });
           toast.present();
         }

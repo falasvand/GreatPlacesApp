@@ -10,6 +10,11 @@
 
 <ion-content padding>
   <ion-grid>
+      <ion-row>
+          <ion-col text-center>
+            <p>{{ place.date }}</p>
+          </ion-col>
+        </ion-row>
     <ion-row>
       <ion-col text-center>
         <rating [ngModel]="place.rating" 
