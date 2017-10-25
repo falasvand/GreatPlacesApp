@@ -1,45 +1,47 @@
-<ion-content padding style="background-color: #d0f2b8">
+<ion-header class="home">
   <ion-grid>
-    <ion-row>
-      <ion-col col-2>
-      </ion-col>
-      <ion-col col-8 text-center>
-        <img src="http://uxupfront.com/blog/wp-content/uploads/2016/01/ICON-Journal-320x320.png" style="height: 50px;" class="img-response">
-        <button ion-button icon-end block color="bg" [navPush]="addPlacePage">Add Entry
-            <ion-icon name="add-circle"></ion-icon>
+    <ion-row align-items-end>
+      <ion-col col-8 offset-2 text-center align-self-end>
+        <button ion-button icon-end block color="fb" [navPush]="addPlacePage">Add Entry
+          <ion-icon name="add-circle"></ion-icon>
         </button>
-      </ion-col>
-      <ion-col col-2>
-      </ion-col>     
-    </ion-row>
-    <ion-row>
-      <ion-col>
-          <hr>
-      </ion-col>
-    </ion-row>
-    <ion-row *ngFor="let place of places; let i = index" (click)="onOpenPlace(place, i)">
-      <ion-col>
-        <ion-card color="card-bg">
-              <ion-card-content>
-                <ion-row>
-                    <ion-col col-4>
-                        {{ place.title }}
-                    </ion-col>
-                    <ion-col col-8 text-right>
-                        <rating [ngModel]="place.rating" 
-                        readOnly="true"
-                        max="5"
-                        emptyStarIconName="star-outline"
-                        halfStarIconName="star-half"
-                        starIconName="star"
-                        nullable="false"> 
-                        </rating>
-                    </ion-col>
-                </ion-row>
-              </ion-card-content>
-          </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
-        
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card *ngIf="places.length == 0" color="fb" style="padding: 10px;">
+          <p ion-text>You currently do not have any saved entries. Click on "Add Entry" above to begin.</p>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngFor="let place of places; let i = index" (click)="onOpenPlace(place, i)">
+      <ion-col>
+        <ion-card color="fb">
+          <ion-card-content>
+            <ion-grid>
+              <ion-row>
+                <ion-col col-4>
+                  <p>{{ place.title | uppercase }}</p>
+                  <p ion-text color="secondary">
+                    <strong>{{ place.date }}</strong>
+                  </p>
+                </ion-col>
+                <ion-col col-8 text-right>
+                  <rating [ngModel]="place.rating" readOnly="true" max="5" emptyStarIconName="star-outline" halfStarIconName="star-half" starIconName="star"
+                    nullable="false">
+                  </rating>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

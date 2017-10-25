@@ -1,3 +1,4 @@
+import { ToastController } from 'ionic-angular';
 import { Injectable } from "@angular/core";
 import { Storage } from '@ionic/storage';
 import { File } from '@ionic-native/file';
@@ -9,7 +10,9 @@ import { Location } from "../models/location";
 export class PlacesService {
   private places: Place[] = [];
 
-  constructor(private storage: Storage, private file: File) {}
+  constructor(private storage: Storage, 
+              private file: File,
+              private toastCtrl: ToastController) {}
 
   addPlace(title: string,
            date: string,
@@ -20,7 +23,15 @@ export class PlacesService {
     const place = new Place(title, date, description, rating, location, imageUrl);
     this.places.push(place);
     this.storage.set('places', this.places)
-      .then()
+      .then(
+        () => {
+          const toast = this.toastCtrl.create({
+            message: 'Journal entry added successfully.',
+            duration: 2000
+          });
+          toast.present();
+        }
+      )
       .catch(
         err => {
           this.places.splice(this.places.indexOf(place), 1);
