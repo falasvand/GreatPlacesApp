@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { ModalController } from 'ionic-angular';
 import { AddPlacePage } from "../add-place/add-place";
 import { Place } from "../../models/place";
 import { PlacesService } from "../../services/places";
 import { PlacePage } from "../place/place";
+import { Content } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -13,6 +14,7 @@ import { PlacePage } from "../place/place";
 export class HomePage implements OnInit {
   addPlacePage = AddPlacePage;
   places: Place[] = [];
+  @ViewChild(Content) content: Content;
 
   constructor(private modalCtrl: ModalController,
               private placesService: PlacesService) {
@@ -26,6 +28,7 @@ export class HomePage implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.content.resize();
     this.places = this.placesService.loadPlaces();
   }
 
